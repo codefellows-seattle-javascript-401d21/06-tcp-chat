@@ -6,7 +6,7 @@ const cmd = require('./lib/cmd');
 
 const server = module.exports = net.createServer();
 const PORT = process.env.PORT || 3000;
-const clientPool = [];
+let clientPool = [];
 
 server.on('connection', function(socket) {
   let client = new Client(socket);
@@ -14,11 +14,8 @@ server.on('connection', function(socket) {
   clientPool.map(c => c.socket.write(`\t${client.nick} has joined the channel`));
 
   socket.on('data', function(data) {
-    cmd(data, clientPool, client);
-    // let message = data.toString();
-    // clientPool.filter(c => c.user !== client.user).map(
-    //   c => c.socket.write(`${client.nick}: ${message}\n`)
-    // );
+    // socket.end();
+    cmd(data, clientPool, client, socket);
   });
   socket.on('close', function() {
     clientPool = clientPool.filter(c => c.user !== client.user);
