@@ -9,7 +9,7 @@
   "scripts": {
     "test": "jest --verbose",
     "lint": "eslint",
-    "start": "some start thing"
+    "start": "nodemon"
   },
   "keywords": [],
   "author": "Mitchell",
