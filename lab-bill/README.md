@@ -1,4 +1,4 @@
-This is an application designed to simulate a chat room on a local node server.
+This is an application designed to simulate a chat room on a local node server. Client.js contains our object constructor. Server.js contains the server materials. Cmd.js handles the chat messages and the different commands.
 
 To engage with this application run a nodemon server in your terminal. Now in a seperate terminal window run the command "nc localhost 3000"
 
