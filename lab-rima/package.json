@@ -1,0 +1,24 @@
+{
+  "name": "lab-rima-06-tcp-server",
+  "version": "0.0.0",
+  "description": "This is an assignment for cf-401 day 6.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "eslint": "^4.16.0",
+    "jest": "^22.1.4",
+    "uuid": "^3.2.1",
+    "nodemon": "^1.14.11"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "nodemon server.js",
+    "test": "jest --verbose",
+    "lint": "eslint ."
+  },
+  "keywords": [],
+  "author": "Rima",
+  "license": "ISC"
+}
