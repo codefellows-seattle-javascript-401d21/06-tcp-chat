@@ -1,17 +1,45 @@
-# Lab 05 Linked Lists
+# Lab 06 TCP Chat server
 
-The insertHead function has an arity of 1. It expects to be passed a node value as it's argument and uses the Node object in Nd to create a new node at the head of the linked list.
-Access the method by requiring in '/lib/sll' as a const and calling constName.insertHead.
-To test using Jest, install jest from the command line if not already installed: 'npm i -D jest' to set it as a dev dependency or just 'npm i' to have npm read package.json for the jest dependency. To run the tests use the npm test command: 'npm run test'.
+Server connection:
+This function has an arity of 2. It expects to be passed the string 'connection' as the first argument and a callback method as the second.
+If the first argument is not 'connection' the server will not respond when commands are entered in the terminal.
+If the second argument is not a function results will be unpredictable.
+Access the method by requiring in 'net' as a const and calling server.on
 
-The insertEnd function has an arity of 1. It expects to be passed a node value as it's argument and uses the Node object in Nd to create a new node at the end of the linked list.
-Access the method by requiring in '/lib/sll' as a const and calling constName.insertEnd.
-To test using Jest, install jest from the command line if not already installed: 'npm i -D jest' to set it as a dev dependency or just 'npm i' to have npm read package.json for the jest dependency. To run the tests use the npm test command: 'npm run test'.
+Socket data:
+This function has an arity of 2. It expects to be passed the string 'data' as the first argument and a callback method as the second.
+If the first argument is not 'data' any function requiring the data will have unpredictable results.
+If the second argument is not a function results will be unpredictable.
+Access the method by requiring in 'net' as a const and calling socket.on
 
-The remove function has an arity of 1. It expects to be passed an offset value as it's argument, 2 thru n, where 2 is the 2nd node as we will not remove the head if it's the only node.
-Access the method by requiring in '/lib/sll' as a const and calling constName.remove.
-To test using Jest, install jest from the command line if not already installed: 'npm i -D jest' to set it as a dev dependency or just 'npm i' to have npm read package.json for the jest dependency. To run the tests use the npm test command: 'npm run test'.
+Cmd.parse:
+This function has an arity of 4. It expects to be passed the buffer data as the first argument, the socket data as the second, the individual client data as the third and all clients in the fourth as clientPool.
+Access the method by requiring in './lib/cmd' as a const and calling cmd.parse
 
-The reverse function has an arity of 0. It will reverse the nodes in the linked list. First node becomes last, 2nd node 2nd last, etc.
-Access the method by requiring in '/lib/sll' as a const and calling constName.reverse.
-To test using Jest, install jest from the command line if not already installed: 'npm i -D jest' to set it as a dev dependency or just 'npm i' to have npm read package.json for the jest dependency. To run the tests use the npm test command: 'npm run test'.
+Socket close:
+This function has an arity of 2. It expects to be passed the string 'close' as the first argument and a callback method as the second.
+If the first argument is not 'close' the user will be unable to disconnect from the server using the /quit command.
+If the second argument is not a function results will be unpredictable.
+Access the method by requiring in 'net' as a const and calling socket.on
+
+Socket error:
+This function has an arity of 2. It expects to be passed the string 'error' as the first argument and a callback method as the second.
+If the first argument is not 'error' error message will not be logged to the console.
+If the second argument is not a function results will be unpredictable.
+Access the method by requiring in 'net' as a const and calling socket.on
+
+To start the server run: nodemon server.js
+To connect to the server using Netcat: nc localhost 3000
+The chatroom commands are:
+
+To quit the server:
+/quit
+
+To list all connect users:
+/list
+
+To change you nickname:
+/nickname newNickname
+
+To private message:
+/dm nickname msg
