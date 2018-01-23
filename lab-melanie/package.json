@@ -1,0 +1,22 @@
+{
+  "name": "lab-melanie",
+  "version": "1.0.0",
+  "description": "lab 6 tcp chat",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "eslint": "^4.16.0",
+    "jest": "^22.1.4",
+    "nodemon": "^1.14.11",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest --verbose",
+    "start": "nodemon"
+  },
+  "author": "melanie",
+  "license": "ISC"
+}
