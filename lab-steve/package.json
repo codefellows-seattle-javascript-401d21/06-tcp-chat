@@ -1,0 +1,31 @@
+{
+  "name": "06-tcp-chat",
+  "version": "1.0.0",
+  "description": "Create chat application",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest --verbose",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stevegcarpenter/06-tcp-chat.git"
+  },
+  "author": "Steve Carpenter",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/stevegcarpenter/06-tcp-chat/issues"
+  },
+  "homepage": "https://github.com/stevegcarpenter/06-tcp-chat#readme",
+  "dependencies": {
+    "eslint": "^4.16.0",
+    "jest": "^22.1.4",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {
+    "nodemon": "^1.14.11"
+  }
+}
