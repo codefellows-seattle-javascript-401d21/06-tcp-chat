@@ -27,12 +27,8 @@ module.exports = function(data, clientPool, client, socket) {
       clientPool.filter(c => c.user === client.user)[0].nick = messageArray[1];
     }
     if(messageArray[0] === '/dm') {
-      console.log(messageArray);
       let ignore = messageArray.shift();
-      console.log(ignore);
       let target = messageArray.shift();
-      console.log(target);
-      console.log(messageArray.join(' '));
       clientPool.filter(c => c.nick === target).map(c => c.socket.write(`${messageArray.join(' ')}`));
     }
   }

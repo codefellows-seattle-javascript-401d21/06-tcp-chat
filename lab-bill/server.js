@@ -14,7 +14,6 @@ server.on('connection', function(socket) {
   clientPool.map(c => c.socket.write(`\t${client.nick} has joined the channel\n`));
 
   socket.on('data', function(data) {
-    // socket.end();
     cmd(data, clientPool, client, socket);
   });
   socket.on('close', function() {
