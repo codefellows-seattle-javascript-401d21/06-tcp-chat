@@ -7,7 +7,7 @@ const Client = require('./model/client');
 
 // Application setup
 const server = module.exports = net.createServer();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 const clientPool = [];
 
 // Server instance setup
@@ -27,7 +27,7 @@ server.on('connection', function(socket) {
   });
 
   socket.on('close', function() {
-    clientPool = clientPool.filter(c => c.user !== client.user);
+    let clientPool = clientPool.filter(c => c.user !== client.user);
     clientPool.map(c => c.socket.write(`\t${client.nick} has left the channel\n`));
   });
 
