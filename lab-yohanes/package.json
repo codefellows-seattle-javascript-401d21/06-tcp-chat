@@ -1,0 +1,23 @@
+{
+  "name": "lab-yohanes",
+  "version": "1.0.0",
+  "description": "chat",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "facebook",
+    "2.0"
+  ],
+  "author": "Yohanes",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^22.1.4",
+    "uuid": "^3.2.1"
+  }
+}
