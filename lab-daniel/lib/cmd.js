@@ -24,15 +24,3 @@ module.exports = (data, connected) => {
     }
   } else return {command: 'message', said: message.join(' ')};
 };
-
-
-// @quit
-// socket.emit('close')
-
-
-
-// @list
-
-// @nickname <new-name>
-
-// @dm <to-username> <message>

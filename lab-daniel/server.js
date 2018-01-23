@@ -21,7 +21,7 @@ server.on('connection', function (socket) {
 
   socket.on('list', function () {
     client.socket.write('\n\tConnected Users:\n');
-    clientPool.map (c =>  client.socket.write(`\n\t\t\t${c.nick}\n`));
+    clientPool.map (c =>  client.socket.write(`\n\t${c.nick}\n`));
   });
   
   socket.on('nickname', function(data) {
