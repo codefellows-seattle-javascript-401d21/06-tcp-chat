@@ -8,7 +8,6 @@ exports.commands = (message, socket, client, clientPool) => {
 
     switch(cmd) {
     case '/quit':
-      socket.write(`Bye, ${client.nickname}\n`);
       socket.end();
       break;
 
@@ -17,15 +16,15 @@ exports.commands = (message, socket, client, clientPool) => {
       break;
 
     case '/nm':
-      var tempName = client.nickname;
+      var oldName = client.nickname;
       client.nickname = name;
-      clientPool.map(c => c.socket.write(`${tempName} changed name to ${name}\n`));
+      clientPool.map(c => c.socket.write(`${oldName} changed name to ${name}\n`));
       break;
 
 
     case '/dm':
       message = message.split(' ').slice(2).join(' ');
-      clientPool.filter(n => n.nickname === name)[0].socket.write(`[DM] ${client.nickname}: ${message}`);
+      clientPool.filter(n => n.nickname === name)[0].socket.write(`${client.nickname}: ${message}`);
       break;
 
     default:
