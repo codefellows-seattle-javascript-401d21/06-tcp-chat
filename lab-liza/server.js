@@ -8,22 +8,16 @@ const cmd = require('./lib/cmd');
 // Application setup
 const server = module.exports = net.createServer();
 const PORT = process.env.PORT || 3000;
-const clientPool = [];
+let clientPool = [];
 
 // Server instance setup
 server.on('connection', function(socket) {
   let client = new Client(socket);
   clientPool.push(client);
-  clientPool.map(c => c.socket.write(`\t${client.nick} has joined the game\n`));
+  clientPool.map(c => c.socket.write(`\t${client.nick} has joined the channel\n`));
 
   socket.on('data', function(data) {
-    // This is where you will abstract away to your command parser module...
-
-    // console.log('socket data', data)
-    let message = data.toString();
-    clientPool.filter(
-      c => c.user !== client.user).map(
-      c => c.socket.write(`${client.nick}: ${message}\n`));
+    cmd(data, clientPool, client, socket);
   });
 
   socket.on('close', function() {
