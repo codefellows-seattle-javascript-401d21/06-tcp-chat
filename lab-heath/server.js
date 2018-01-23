@@ -27,7 +27,7 @@ server.on('connection', function(socket) {
   socket.on('dm', function(obj) {
     let clientToMessage = obj.recipient;
     let client1 = clientPool.filter(clint => clint.nick === clientToMessage);
-    client1[0].socket.write(`${client1[0].nick}: ${obj.message}\n`);
+    client1[0].socket.write(`${client.nick}: ${obj.message}\n`);
   });
 
   socket.on('cn', function(obj) {
