@@ -3,7 +3,7 @@
 // Application dependencies
 const net = require('net');
 const Client = require('./model/client');
-const cmd = require('./lib/cmd');
+// const cmd = require('./lib/cmd');
 
 // Application setup
 const server = module.exports = net.createServer();

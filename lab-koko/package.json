@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/kowserk7/06-tcp-chat#readme",
   "dependencies": {
-    "jest": "^22.1.4"
+    "jest": "^22.1.4",
+    "uuid": "^3.2.1"
   }
 }
