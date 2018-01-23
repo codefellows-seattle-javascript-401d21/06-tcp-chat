@@ -18,6 +18,7 @@ once this is done, you will be in a chat room that you can talk to anyone else t
 
 you have a few commands to use to make this app more playful. you have `/list`, `/cn`, `/dm` and you have `/quit`.
 
+### code for `/list` and how it starts off.
 `/list` - will let you see everyone that is connected at that time. this will only be displayed to you.
 
 this kicks off this function. Data is what the person writes in the terminal. and we set that to `text` and the we emit it which then sends that info to the CDM.js page
