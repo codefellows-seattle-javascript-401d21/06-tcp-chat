@@ -3,12 +3,9 @@
 const cmd = module.exports = {}
 
 cmd.parse = function(data, socket, client, clientPool) {
-  
-  let command = (data.toString().slice(0, -1))
-  let arrc = command.split(' ')
-  console.log(arrc)
+  let command = (data.toString().slice(0, -1)).split(' ')
 
-  switch (arrc[0]) {
+  switch (command[0]) {
   case '/quit':
     client.socket.end()
     break;
@@ -17,12 +14,12 @@ cmd.parse = function(data, socket, client, clientPool) {
       c.socket.write(`\t${client.nick} is logged on\n`)})
     break;
   case '/nickname':
-    client.nick = arrc[1]
+    client.nick = command[1]
     socket.write(`\tYour nickname is now: ${client.nick}\n`)
     break;
   case '/dm':
-    clientPool = clientPool.filter(c => c.nick === arrc[1])
-    clientPool.map(c => c.socket.write(`\t${client.nick} wrote: ${arrc.splice(2).join(' ')}\n`))
+    clientPool = clientPool.filter(c => c.nick === command[1])
+    clientPool.map(c => c.socket.write(`\t${client.nick} wrote: ${command.splice(2).join(' ')}\n`))
     break;
   default:
     clientPool = clientPool.filter(c => c.user === client.user)

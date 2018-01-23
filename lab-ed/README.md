@@ -8,7 +8,7 @@ Access the method by requiring in 'net' as a const and calling server.on
 
 Socket data:
 This function has an arity of 2. It expects to be passed the string 'data' as the first argument and a callback method as the second.
-If the first argument is not 'data' any function requiring the data will have unpredictable results.
+If the first argument is not 'data' any function requiring the data buffer will have unpredictable results.
 If the second argument is not a function results will be unpredictable.
 Access the method by requiring in 'net' as a const and calling socket.on
 

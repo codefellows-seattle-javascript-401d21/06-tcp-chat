@@ -1,16 +1,13 @@
 'use strict'
 
-// Application dependencies
 const net = require('net')
 const Client = require('./model/client')
 const cmd = require('./lib/cmd')
 
-// Application setup
 const server = module.exports = net.createServer()
 const PORT = process.env.PORT || 3000
 let clientPool = []
 
-// Server instance setup
 server.on('connection', function(socket) {
   let client = new Client(socket)
   clientPool.push(client)
