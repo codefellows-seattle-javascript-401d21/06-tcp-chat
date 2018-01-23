@@ -1,0 +1,30 @@
+{
+  "name": "06-tcp-chat",
+  "version": "1.0.0",
+  "description": "TCP chat socket test jest server client ",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "TCP",
+    "chat",
+    "socket",
+    "test",
+    "jest",
+    "server",
+    "client"
+  ],
+  "author": "Jeremy",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^22.1.4"
+  },
+  "dependencies": {
+    "uuid": "^3.2.1"
+  }
+}
