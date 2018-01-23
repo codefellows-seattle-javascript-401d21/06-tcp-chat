@@ -1,0 +1,21 @@
+{
+  "name": "lab-jordan",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "eslint": "^4.16.0",
+    "jest": "^22.1.4",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest --verbose",
+    "lint": "eslint -r *.js"
+  },
+  "author": "",
+  "license": "ISC"
+}
