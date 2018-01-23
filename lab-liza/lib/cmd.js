@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = function (data, clientPool, client, socket) {
+module.exports = function (data, clientPool, client) {
   let message = data.toString().slice(0, -1);
   let messageArray = message.split(' ');
   if (message.charAt(0)!== '/'){
