@@ -5,13 +5,11 @@ const net = require('net');
 const Client = require(`${__dirname}/model/client`);
 const cmd = require(`${__dirname}/lib/cmd`);
 
-
 //server dependencies
 const server = module.exports = net.createServer();
 const PORT = process.env.PORT || 3000;
 const clientPool = [];
 const clientMap = new Map();
-
 
 server.on('connection', function(socket){
   let client = new Client(socket);
@@ -20,28 +18,19 @@ server.on('connection', function(socket){
   for (var usr of clientMap.values()){ usr.socket.write(`\tBonjour, ${client.clientName}. Comment allez-vous?\n\t`); }
 
   socket.on('data', function(data){
+    let msg = data.toString().trim();
     console.log(data);
-    console.log('hello');
-    console.log('user', client.user);
-
-    let cmdArg = data.toString().substr(0,10).replace(/@([^\s]+)(.*)/g, '$1');
-    console.log('Jason', JSON.stringify(cmdArg))
-        
-
-        cmdArg = JSON.parse(JSON.stringify(cmdArg))
-
-        (cmdArg)
-
-        cmd[cmdArg];
-
-    if (cmdArg) console.log('cmd', cmdArg);
-  
+    let cmdArgs = msg.substr(0,1) === '@' ? msg.substr(1) : null;
+    if (! cmdArgs) return;
+    let [cmdArg, uname, mesg] = cmdArgs.split(' ');
+    cmdArg = cmdArg.toLowerCase();
+    if (! cmd.hasOwnProperty(cmdArg)) return;
+    cmd[cmdArg](client, clientMap, uname, msg );
   });
-
 
   socket.on('close', function() {
     clientMap.delete(client.user);
-    for (var usr of clientMap.values()){ usr.socket.write(`Aravoir, ${client.clientName}, mon ami\n\t`); }
+    for (var usr of clientMap.values()){ usr.socket.write(`\tAravoir, ${client.clientName}, mon ami\n\t`); }
   });
 
   socket.on('error', function(err) {
@@ -49,6 +38,7 @@ server.on('connection', function(socket){
   });
   
 });
+
 
 server.listen(PORT, () => console.log(`Listening on PORT ${PORT}`));
 
