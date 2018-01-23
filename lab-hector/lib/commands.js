@@ -11,9 +11,11 @@ module.exports = function (cp, data, cb) {
 };
 
 function parser(data) {
-  let cmd, msg;
+  console.log(data);
 
+  let cmd, msg;
   if (data.startsWith('/')) {
+
     return {
       cmd: data[0],
       msg: str.slice(1),
