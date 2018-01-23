@@ -1,32 +1,35 @@
 'use strict';
 
-const cmd = module.exports = {};
+exports.commands = (message, socket, client, clientPool) => {
+  if (message.slice(0, 1) === '/') {
+    let cmdArr = message.trim().split(' ');
+    let cmd = cmdArr[0];
+    let name = cmdArr[1];
+
+    switch(cmd) {
+    case '/quit':
+      socket.write(`Bye, ${client.nickname}\n`);
+      socket.end();
+      break;
+
+    case '/list':
+      socket.write(`Users Online: ${clientPool.map(el => el.nickname).join(', ')}\n`);
+      break;
+
+    case '/nm':
+      var tempName = client.nickname;
+      client.nickname = name;
+      clientPool.map(c => c.socket.write(`${tempName} changed name to ${name}\n`));
+      break;
 
 
-cmd.showData = function(data) {
+    case '/dm':
+      message = message.split(' ').slice(2).join(' ');
+      clientPool.filter(n => n.nickname === name)[0].socket.write(`[DM] ${client.nickname}: ${message}`);
+      break;
 
-  let dataObj = {};
-  let inputData = data.toString().slice(0, -1).split(' ');
-  if (inputData[0][0] === '/') {
-    if (inputData[0] === '/quit') {
-      dataObj.command = 'quit';
+    default:
+      socket.write('Invalid command \n Valid commands = /quit /list /nm /dm');
     }
-    if (inputData[0] === '/dm') {
-      dataObj.command = 'dm';
-      dataObj.recipient = inputData[1];
-      dataObj.message = inputData.slice(2).join(' ');
-    }
-    if (inputData[0] === '/list') {
-      dataObj.command = 'list';
-    }
-    if (inputData[0] === '/cn') {
-      dataObj.command = 'cn';
-      dataObj.newNick = inputData[1];
-    }
-    return dataObj;
-  } else {
-    dataObj.command = 'message';
-    dataObj.message = inputData.join(' ');
-    return dataObj;
   }
 };

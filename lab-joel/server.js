@@ -1,60 +1,54 @@
 'use strict';
 
+// Application Dependencies
 const net = require('net');
-const Client = require('./model/client');
+const Client = require('./lib/client');
 const cmd = require('./lib/cmd');
 
+// Application Setup
 const server = module.exports = net.createServer();
 const PORT = process.env.PORT || 3000;
 let clientPool = [];
 
-server.on('connection', function(socket) {
+// Server Instance Setup
+server.on('connection', (socket) => {
+  socket.write(`Welcome to my chatroom!`);
 
   let client = new Client(socket);
   clientPool.push(client);
-  clientPool.map(c => c.socket.write(`\t${client.nick} has joined the conversation\n`));
-
-  socket.on('data', function(data) {
-    let text = cmd.showData(data);
-    socket.emit(text.command, text);
+  clientPool.map(c => c.socket.write(`\t${client.nickname} has joined the chat.\n`));
+  server.getConnections((err, count) => {
+    if (err) throw err;
+    console.log('connections: ', count);
   });
 
-  socket.on('list', function() {
-    socket.write(`connected users\n`);
-    clientPool.map(clint => socket.write(`\t${clint.nick}\n`));
+  socket.on('data', (data) => {
+    let message = data.toString();
+
+    cmd.commands(message, socket, client, clientPool);
+
+    if (message.slice(0, 1) !== '/') {
+      clientPool.filter(c => c.user !== client.user)
+        .map(c => c.socket.write(`${client.nickname}: ${message}`));
+    }
   });
 
-  socket.on('dm', function(obj) {
-    let clientToMessage = obj.recipient;
-    let client1 = clientPool.filter(clint => clint.nick === clientToMessage);
-    client1[0].socket.write(`${client.nick}: ${obj.message}\n`);
-  });
-
-  socket.on('cn', function(obj) {
-    let oldName = client.nick;
-    client.nick = obj.newNick;
-    socket.write(`${oldName} in now "${client.nick}"\n`);
-  });
-
-
-  socket.on('quit', function() {
+  socket.on('close', () => {
     clientPool = clientPool.filter(c => c.user !== client.user);
-    clientPool.map(c => c.socket.write(`\t${client.nick} has left the conversation\n`));
-    socket.end();
+    clientPool.map(c => c.socket.write(`\t${client.nickname} has left the channel.\n`));
+    server.getConnections((err, count) => {
+      if (err) throw err;
+      console.log('connections: ', count);
+    });
   });
 
-  socket.on('message', function(data) {
-    clientPool.filter(
-      c => c.user !== client.user).map(
-      c => c.socket.write(`${client.nick}: ${data.message}\n`));
+  socket.on('error', (err) => {
+    console.error(err);
   });
 
-  socket.on('error', function(err) {
-    console.err(err);
+}).listen(PORT, () => console.log('opened server on ', server.address()));
 
-
-  });
-
+server.getConnections((err, count) => {
+  if (err) throw err;
+  console.log('connections: ', count);
 });
-
-server.listen(PORT, () => console.log(`listening on port ${PORT}`));
