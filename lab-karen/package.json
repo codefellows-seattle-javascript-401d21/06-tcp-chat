@@ -1,0 +1,25 @@
+{
+  "name": "06-tcp-chat",
+  "version": "1.0.0",
+  "description": "setting up a tcp chat server",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "run": "nodemon server.js"
+  },
+  "author": "Karen Perez",
+  "license": "MIT",
+  "devDependencies": {
+    "dotenv": "^4.0.0",
+    "eslint": "^4.16.0",
+    "jest": "^22.1.4"
+  },
+  "dependencies": {
+    "nc": "^1.0.2",
+    "uuid": "^3.2.1"
+  }
+}
