@@ -48,11 +48,11 @@ server.on('connection', function(socket) {
     socket.end();
   })
 
-  // socket.on('error', function() {
-  //   console.err(err);
-  //
-  //
-  // })
+  socket.on('error', function() {
+    console.err(err);
+
+
+  })
 
 });
 
