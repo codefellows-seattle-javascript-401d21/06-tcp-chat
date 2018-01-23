@@ -15,18 +15,18 @@ server.on('connection', function(socket) {
   clientPool.map(c => c.socket.write(`\t${client.nick} has joined the conversation\n`));
 
   socket.on('data', function(data) {
-    console.log('data back from cmd module', cmd.showData(data));
+    //console.log('data back from cmd module', cmd.showData(data));
     let toEmit = cmd.showData(data);
     socket.emit(toEmit.command, toEmit);
 
-  })
+  });
 
-  socket.on('list', function(obj) {
+  socket.on('list', function() {
     console.log('inside list');
     clientPool.map(c => socket.write(`\t${c.nick}\n`));
 
 
-  })
+  });
   socket.on('dm', function(obj) {
     console.log('inside dm');
     let clientToMessage = obj.recipient;
@@ -35,24 +35,24 @@ server.on('connection', function(socket) {
     client1[0].socket.write(`${obj.message}`);
 
 
-  })
+  });
   socket.on('nick', function(obj) {
     client.nick = obj.newNick;
 
-  })
+  });
 
 
   socket.on('close', function() {
     clientPool = clientPool.filter(c => c.user !== client.user);
     clientPool.map(c => c.socket.write(`\t${client.nick} has left the conversation\n`));
     socket.end();
-  })
+  });
 
   socket.on('error', function() {
     console.err(err);
 
 
-  })
+  });
 
 });
 
