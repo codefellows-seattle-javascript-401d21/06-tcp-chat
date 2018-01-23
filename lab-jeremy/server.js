@@ -36,7 +36,7 @@ server.on('connection', function(socket) {
         c => c.user !== client.user).map(
           c => c.socket.write(`${client.nick}: ${message}\n`))
     } else if (cmdType === 'quit') { //close the socket for the user and emit a message to all users saying the user left
-      client.socket.emit('close');
+      // client.socket.emit('close');
       client.socket.destroy();
     } else if (cmdType === 'list') { // show a list of users to only the user who typed
       client.socket.write(`\r\nOnline users:\r\n`)
