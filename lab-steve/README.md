@@ -1,49 +1,35 @@
-# Singly Linked List Data Structure
+# TCP Chat Lab
 
 **Author**: Steve Carpenter
 **Version**: 1.0.0
 
 ## Overview
-This software is a proof of concept Singly Link List library.
+This is a TCP implementation of a chat client and server.
 
 ## Getting Started
 The user needs to do the following to get the code up and running:
--Clone the repository from github [here](https://github.com/stevegcarpenter/04-bitmap-project)
+-Clone the repository from github [here](https://github.com/stevegcarpenter/06-tcp-chat)
 -Run `npm install` in the lab-steve directory to install all the Node packages
--If you want to use the singly linked list (SLL), you need to import the sll module using a `require('./path/to/sll')` statement
--To run all the unit tests run `npm run test`
+-Run nodemon to start the server listening
+-Use eiter `nc` or telnet and connect to localhost using the port specified when the server started
 
 ## Architecture
 -NodeJS
 -npm
 -JS
--Jest Test API
-
-## Function signatures
-```
-  Node
-    constructor(value=undefined)
-  
-  SLL
-    constructor()
-    insertHead(value)
-    insertEnd(value)
-    reverse()
-    remove(offset)
-    findNthNodeFromEnd(n)
-```
+-uuid
 
 ## Change Log
-2018-01-19 Scaffolded out the directory structure.
-2018-01-19 Initialized npm package.json and installed modules
-2018-01-20 Implemented Node class inside nd.js file
-2018-01-20 Implemented several of the SLL methods (e.g. insertHead, insertEnd)
-2018-01-21 Implemented and tested reverse method, findNthNodeFromEnd method
-2018-01-21 Finished and implemented remaining tests
+2018-01-22 Scaffolded directory and installed npm packages
+2018-01-22 (origin/dev) Created model/client.js file
+2018-01-22 Committed some stuff provided by scott in class
+2018-01-22 Got the server code done.
+2018-01-22 Adding the cmd.js file to process commands
+2018-01-22 Implementd a closure to assist creating usernames
+2018-01-22 Removed unnecessary test directory
 
 ## Credits and Collaborations
 [NodeJS](https://nodejs.org)
 [npm](https://www.npmjs.com/)
-[Jest](https://facebook.github.io/jest/)
 [JavaScript](https://www.javascript.com/)
 
