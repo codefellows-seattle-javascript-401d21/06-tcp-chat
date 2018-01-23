@@ -15,19 +15,18 @@ server.on('connection', function(socket) {
   let client = new Client(socket);
   clientPool.push(client);
 
-
+  // Shows message to all users but user that joined
   clientPool.filter(
     c => c.user !== client.user).map(
     c => c.socket.write(`\t${client.nick} has joined\n`));
 
+  // Shows message only to user that joined
   clientPool.filter(
     c => c.user === client.user).map(
     c => c.socket.write(`\tWelcome ${client.nick}\n`));
 
 
   socket.on('data', function(data) {
-    // This is where you will abstract away to your command parser module...
-
     // console.log('socket data', data)
     let message = data.toString().trim();
     console.log(message);
