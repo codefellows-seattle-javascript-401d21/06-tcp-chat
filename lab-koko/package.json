@@ -1,0 +1,28 @@
+{
+  "name": "lab-koko",
+  "version": "1.0.0",
+  "description": "builing tcp chat room",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js",
+    "lint": "eslint server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kowserk7/06-tcp-chat.git"
+  },
+  "author": "Koko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kowserk7/06-tcp-chat/issues"
+  },
+  "homepage": "https://github.com/kowserk7/06-tcp-chat#readme",
+  "dependencies": {
+    "jest": "^22.1.4",
+    "uuid": "^3.2.1"
+  }
+}
