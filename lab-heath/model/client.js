@@ -5,6 +5,6 @@ const faker = require('faker');
 
 module.exports = function(socket) {
   this.socket = socket,
-  this.nick = `user - ${faker.name.findName()}`,
+  this.nick = `- ${faker.name.findName()}`,
   this.user = uuid('uuid/v4');
 };
