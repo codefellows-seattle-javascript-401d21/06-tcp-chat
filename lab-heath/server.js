@@ -19,6 +19,12 @@ server.on('connection', function(socket) {
     socket.emit(text.command, text);
   });
 
+  socket.on('message', function(data) {
+    clientPool.filter(
+      c => c.user !== client.user).map(
+      c => c.socket.write(`${client.nick}: ${data.message}\n`));
+  });
+
   socket.on('list', function() {
     socket.write(`connected users\n`);
     clientPool.map(clint => socket.write(`\t${clint.nick}\n`));
@@ -33,7 +39,10 @@ server.on('connection', function(socket) {
   socket.on('cn', function(obj) {
     let oldName = client.nick;
     client.nick = obj.newNick;
-    socket.write(`${oldName} in now "${client.nick}"\n`);
+    let messageToAll = `${oldName} in now "${client.nick}"\n`;
+    let text = cmd.showData(messageToAll);
+    socket.emit(text.command, text);
+    socket.write(`you are now "${client.nick}"\n`);
   });
 
 
@@ -43,15 +52,8 @@ server.on('connection', function(socket) {
     socket.end();
   });
 
-  socket.on('message', function(data) {
-    clientPool.filter(
-      c => c.user !== client.user).map(
-      c => c.socket.write(`${client.nick}: ${data.message}\n`));
-  });
-
   socket.on('error', function() {
     console.err(err);
-
 
   });
 
