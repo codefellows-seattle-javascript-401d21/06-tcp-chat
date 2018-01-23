@@ -11,7 +11,7 @@ let clientPool = [];
 server.on('connection', function(socket) {
   let client = new Client(socket);
   clientPool.push(client);
-  clientPool.map(c => c.socket.write(`\t${client.nick} has joined the channel`));
+  clientPool.map(c => c.socket.write(`\t${client.nick} has joined the channel\n`));
 
   socket.on('data', function(data) {
     // socket.end();
@@ -19,7 +19,7 @@ server.on('connection', function(socket) {
   });
   socket.on('close', function() {
     clientPool = clientPool.filter(c => c.user !== client.user);
-    clientPool.map(c => c.socket.write(`\t${client.nick} has left the channel`));
+    clientPool.map(c => c.socket.write(`\t${client.nick} has left the channel\n`));
   });
   socket.on('error', function(err) {
     console.error(err);
