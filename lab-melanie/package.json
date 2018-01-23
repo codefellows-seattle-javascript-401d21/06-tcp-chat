@@ -15,7 +15,8 @@
   "devDependencies": {},
   "scripts": {
     "test": "jest --verbose",
-    "start": "nodemon"
+    "start": "nodemon",
+    "lint": "eslint"
   },
   "author": "melanie",
   "license": "ISC"
