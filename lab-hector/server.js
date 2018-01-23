@@ -5,6 +5,9 @@ const Client = require('./model/client');
 const commands = require('./lib/commands');
 const net = require('net');
 const EE = require('events').EventEmitter;
+const ee = new EE()
+
+
 
 // Application setup
 const server = module.exports = net.createServer();
@@ -18,13 +21,10 @@ server.on('connection', socket => {
   clientPool.push(client);
   clientPool.map(c => c.socket.write(`\t${client.user} has joined the channel.\n`));
 
-  socket.on('data', data => commands(clientPool, data, (err, data) => {
-    if (err) {
-      socket.emit('error', err);
-      client.socket.write(`There was an issue: ${err.message}\n`);
-      return;
-    }
-  }));
+  socket.on('data', data => {
+    let message = data.toString();
+    clientPool.map(c => c.socket.write(`${client.nick}: ${message}`));
+  });
 
   socket.on('close', (hadErr) => {
     if (hadErr) {
