@@ -14,21 +14,25 @@ let clientPool = [];
 server.on('connection', function(socket) {
   let client = new Client(socket);
   clientPool.push(client);
+
+  // Sends message to clientPool when a user joins
   clientPool.map(c => c.socket.write(`\t${client.nick} has joined\n`));
 
-  // Sends message to cmd.js
+  // Sends message to cmd.js to determine action
   socket.on('data', function(data) {
     let message = data.toString().trim();
-    cmd(message, clientPool, client, socket)
+    cmd(message, clientPool, client, socket);
   });
 
+  // Removes user from clientPool and sends message to remaining that user has left
   socket.on('close', function() {
     clientPool = clientPool.filter(c => c.user !== client.user);
+    clientPool.map(c => c.socket.write(`${client.nick} has left\n`));
   });
 
 
   socket.on('error', function(err) {
-    console.error(err);
+    console.error('Opps, something has gone wrong!', err);
   });
 });
 

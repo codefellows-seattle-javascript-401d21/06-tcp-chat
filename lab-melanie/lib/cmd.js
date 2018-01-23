@@ -14,7 +14,7 @@ module.exports = (message, clientPool, client, socket) => {
     break;
 
   // ends chat
-  case 'quit':
+  case '/quit':
     client.socket.end();
     break;
 
