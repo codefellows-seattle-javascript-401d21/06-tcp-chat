@@ -5,8 +5,8 @@ const Client = require('./model/client');
 const commands = require('./lib/commands');
 const net = require('net');
 const EE = require('events').EventEmitter;
-const ee = new EE()
-
+const ee = new EE();
+let sockets = [];
 
 
 // Application setup
@@ -14,6 +14,17 @@ const server = module.exports = net.createServer();
 // console.log(server)
 const PORT = process.env.PORT || 3000;
 let clientPool = [];
+
+
+
+
+
+
+
+
+
+
+
 
 // Server setup
 server.on('connection', socket => {
@@ -32,6 +43,7 @@ server.on('connection', socket => {
       client.socket.write(`There was an issue: ${err.message}\n`);
       return;
     }
+
 
     clientPool = clientPool.filter(c => c.user !== client.user);
     clientPool.map(c => c.socket.write(`\t${client.user} has left the channel\n`));
