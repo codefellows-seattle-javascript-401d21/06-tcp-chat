@@ -8,7 +8,7 @@ const cmd = require('./lib/cmd');
 // application setup
 const server = module.exports = net.createServer()
 const PORT = process.env.PORT || 3000;
-const clientPool = []
+let clientPool = []
 
 // server instance setup
 server.on('connection', function(socket){
@@ -57,7 +57,8 @@ server.on('connection', function(socket){
   })
 
   socket.on('close', function() {
-    clientPool.filter(c => c.user !== client.user).map(c => c.socket.write(`\t${client.nick} has left the channel\n`))
+    clientPool = clientPool.filter(c => c.user !== client.user)
+    clientPool.map(c => c.socket.write(`\t${client.nick} has left the channel\n`))
   })
 
   socket.on('error', function(err){
