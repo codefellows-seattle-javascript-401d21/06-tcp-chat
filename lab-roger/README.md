@@ -9,3 +9,5 @@ Create a TCP server module that will allow for the following actions:
 
 The user needs to ```npm install```
 The user needs to ```nc localhost 3000``` to connect to the server.
+
+The user can ```/help``` to get a list of commands.
