@@ -1,0 +1,20 @@
+{
+  "name": "tcpchat",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest --verbose"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jest": "^22.1.4",
+    "nodemon": "^1.14.11",
+    "uuid": "^3.2.1"
+  }
+}
