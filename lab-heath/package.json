@@ -1,0 +1,22 @@
+{
+  "name": "lab-heath",
+  "version": "1.0.0",
+  "description": "### Installing and How to use.",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "dependencies": {
+    "eslint": "^4.16.0",
+    "faker": "^4.1.0",
+    "uuid": "^3.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js",
+    "lint": "eslint"
+  },
+  "author": "",
+  "license": "ISC"
+}
