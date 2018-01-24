@@ -6,7 +6,7 @@ module.exports = (data, connected) => {
   if (message[0][0] === '@') {
     switch (message[0]) {
     case '@quit':
-      return {command: 'close'};
+      return {command: 'quit'};
     case '@list':
       return {command: 'list'};
     case '@nickname':

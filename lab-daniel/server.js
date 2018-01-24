@@ -51,7 +51,7 @@ server.on('connection', function (socket) {
     clientPool.map(c => c.socket.write(`\n${client.nick} is disappointed\n\n${ascii.facepalm}`));
   });
 
-  socket.on('close', function () {
+  socket.on('quit', function () {
     clientPool = clientPool.filter(c => c.user !== client.user);
     clientPool.map(c => c.socket.write(`\n\t${client.nick} has left the chat\n`));
     socket.end();
