@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = (message, clientPool, client, socket) => {
+module.exports = (message, clientPool, client) => {
   let parseCmd = message.split(' ');
   let command = parseCmd[0];
   let dirMess = parseCmd.slice(2).join(' ');

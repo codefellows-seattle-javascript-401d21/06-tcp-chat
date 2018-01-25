@@ -16,7 +16,7 @@
   "scripts": {
     "test": "jest --verbose",
     "start": "nodemon",
-    "lint": "eslint"
+    "lint": "eslint ."
   },
   "author": "melanie",
   "license": "ISC"
