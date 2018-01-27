@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = (data, connected) => {
+module.exports = (data, connected) => { //data parameter represents data passed to/from server, connected represents clientpool
   let message = data.toString().trim().split(' '); //assigns value of message to data turned into a string, trimmed of whitespace on each end, and then split by spaces
   //this takes a message typed by a client connected on NC and allows us to check for specific commands entered by the client
   if(message[0][0] === '@') { //conditional verifying that the first letter of the first element @ of an @quit/.etc command is chosen character for issuing commands
@@ -10,7 +10,6 @@ module.exports = (data, connected) => {
     case '@list': //in the case that the first word of message is @list
       return {command: 'list'}; //return ommand to list all connected clients
     case '@nickname': //in the case that the first word of message is @nickname
-      if(connected.filter(c => c.nickname === message[1])) return {command: 'error', err: 'Nickname already in use'}; //if filtering connected, which contains clientPool in server.js, by the entered client nickname to be assigned returns a value i.e. already exists, return an error command informing client the username is already assigned
       return message[2] ? {command: 'error', err: '@nickname requires a name without spaces'} : {command: 'nickname', name: message[1]}; //return result of ternary, where if there is a second word in message, error out to user and inform them that chosen nickname can only be one word
       //if there is no 3rd item (e.g. @nickname lala <third-item>) return command nickname and sets that users name to the world following the command
     case '@dm': //in the case that the first word of message is @nickname
