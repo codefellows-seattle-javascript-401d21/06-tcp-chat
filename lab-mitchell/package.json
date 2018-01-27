@@ -8,8 +8,8 @@
   },
   "scripts": {
     "test": "jest --verbose",
-    "lint": "eslint",
-    "start": "nodemon"
+    "lint": "eslint .",
+    "start": "nodemon server.js"
   },
   "keywords": [],
   "author": "Mitchell",
