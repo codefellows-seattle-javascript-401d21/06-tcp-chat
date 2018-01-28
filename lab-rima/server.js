@@ -36,7 +36,7 @@ server.on('connection', function(socket) {
         console.log('list all users');
         client.socket.write('Here is all who are currently logged in!\n'); 
         clientPool.filter(c => c.user !== client.user).
-        map(c => client.socket.write(`${c.nickname}`));
+          map(c => client.socket.write(`${c.nickname}`));
       }
       // msg to all
       else if(command === null){
@@ -63,15 +63,15 @@ server.on('connection', function(socket) {
           }
         });
         if(!found){
-           client.socket.write('User does not exist or not connected now.');
+          client.socket.write('User does not exist or not connected now.');
         }
       }
     } catch(err) {
       // show err msg to only a user who typed a wrong command
       client.socket.write(err.message);
     }
-        //clientPool.forEach(function(c){
-         // c.socket.write(`\t${c.nickname}\n`);});
+    //clientPool.forEach(function(c){
+    // c.socket.write(`\t${c.nickname}\n`);});
   });
 
   socket.on('close', function() {

@@ -2,7 +2,7 @@
 
 module.exports = function(data){
   let dString = data.toString();
- // console.log(dString);
+  // console.log(dString);
   if(dString.slice(0, 1) === '@'){
     // if command is quit
     if(dString.slice(0, 5) === '@quit'){
@@ -28,14 +28,14 @@ module.exports = function(data){
       let msg = dString.split(' ').slice(2).join(' ');
       return {
         nickname: nn,
-        msg: msg
+        msg: msg,
       };
     }
 
     else {
     // if dString doesn't start with @, throw error
     // make sure it prints for only a user who typed a wrong command
-    throw new Error('Acceptable command: \n' +
+      throw new Error('Acceptable command: \n' +
                     ' @quit -> disconnect\n' +
                     ' @list  -> show all connected users\n' +
                     ' @nickname <new_name> -> change nickname\n' +
