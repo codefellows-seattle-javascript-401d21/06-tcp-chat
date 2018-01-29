@@ -13,13 +13,13 @@ cmd.dm  = (...args) => {
   let [client, clientMap, uname, msg ] = args;
   for (let usr of clientMap.values()){ 
     if (usr.clientName === uname){
-      usr.socket.write(`${pre}@${client.clientName} <direct>: ${msg}\n`);
-      client.socket.write(`${pre}@${client.clientName} <direct>: @${uname}: ${msg}\n`);
-      client.socket.write(`${pre}@${client.clientName} says: `);
+      usr.socket.write(`\n${pre}@${client.clientName} <direct>: ${msg}\n${pre}@${uname} says: `);
+      client.socket.write(`${pre}@${client.clientName}/@${uname} <direct>: ${msg}\n${pre}@${client.clientName} says: `);
+      //client.socket.write(`${pre}@${client.clientName} says: `);
       return;
     }
-    client.socket.write(`${pre}host: Can not find user, ${uname}.  FYI... user names are case sensitive.\n${pre}@${client.clientName} says: `);
   }
+  client.socket.write(`${pre}host: Can not find user, ${uname}.  FYI... user names are case sensitive.\n${pre}@${client.clientName} says: `);
 };
 
 cmd.list = (...args) => {

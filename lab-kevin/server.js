@@ -14,14 +14,14 @@ server.on('connection', function(socket){
   let client = new Client(socket);
   clientMap.set(client.user, client);
 
-  for (let usr of clientMap.values()){ usr.socket.write(`${pre}host: Bonjour, ${client.clientName}. Comment allez-vous?\n${pre}@${usr.clientName} says: `); }
+  for (let usr of clientMap.values()){ usr.socket.write(`\n${pre}host: Bonjour, ${client.clientName}. Comment allez-vous?\n${pre}@${usr.clientName} says: `); }
 
   socket.on('data', function(data){
     let msg = data.toString().trim();
     let cmdArgs = msg.substr(0,1) === '@' ? msg.substr(1) : null;
     if (! cmdArgs){
       for (let usr of clientMap.values()){
-        usr.socket.write(`${pre}@${client.clientName} <all>: ${msg}\n${pre}@${usr.clientName} says: `);
+        usr.socket.write(`\n${pre}@${client.clientName} <all>: ${msg}\n${pre}@${usr.clientName} says: `);
       }
       return;
     }
@@ -43,7 +43,7 @@ server.on('connection', function(socket){
 
   socket.on('close', function() {
     clientMap.delete(client.user);
-    for (let usr of clientMap.values()){ usr.socket.write(`${pre}host: Aravoir, ${client.clientName}, mon ami\n${pre}@${usr.clientName} says: `); }
+    for (let usr of clientMap.values()){ usr.socket.write(`\n${pre}host: Aravoir, ${client.clientName}, mon ami\n${pre}@${usr.clientName} says: `); }
   });
 
   socket.on('error', function(err) {
