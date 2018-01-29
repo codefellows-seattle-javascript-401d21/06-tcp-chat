@@ -25,7 +25,8 @@ server.on('connection', function(socket){
       }
       return;
     }
-    let [cmdArg, uname, mesg] = cmdArgs.split(' ');
+    let [cmdArg, uname] = cmdArgs.split(' ');
+    let mesg = cmdArgs.split(' ').slice(2).join(' ');
     let cmdArg_lower = cmdArg.toLowerCase();
     if (! cmd.hasOwnProperty(cmdArg_lower)){
       for (let usr of clientMap.values()){ 
@@ -51,5 +52,4 @@ server.on('connection', function(socket){
   
 });
 
-//
 

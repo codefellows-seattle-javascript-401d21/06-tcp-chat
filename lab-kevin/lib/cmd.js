@@ -14,9 +14,11 @@ cmd.dm  = (...args) => {
   for (let usr of clientMap.values()){ 
     if (usr.clientName === uname){
       usr.socket.write(`${pre}@${client.clientName} <direct>: ${msg}\n`);
+      client.socket.write(`${pre}@${client.clientName} <direct>: @${uname}: ${msg}\n`);
       client.socket.write(`${pre}@${client.clientName} says: `);
       return;
     }
+    client.socket.write(`${pre}host: Can not find user, ${uname}.  FYI... user names are case sensitive.\n${pre}@${client.clientName} says: `);
   }
 };
 
@@ -37,7 +39,7 @@ cmd.nickname = (...args) => {
 
 cmd.help = (...args) => { 
   let [client] = args;
-  let helpCommands = `\n@list -- get a list of all current users in the chat
+  let helpCommands = `\n\n  @list -- get a list of all current users in the chat
   @dm <username> <message> -- direct message a user
   @username <message> -- short cut to direct message a user
   @nickname <new_name> -- change your user name
