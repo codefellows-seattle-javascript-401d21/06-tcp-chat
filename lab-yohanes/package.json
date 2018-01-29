@@ -1,0 +1,25 @@
+{
+  "name": "lab-yohanes",
+  "version": "1.0.0",
+  "description": "chat",
+  "main": "server.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "jest",
+    "start": "node server.js"
+  },
+  "keywords": [
+    "facebook",
+    "2.0"
+  ],
+  "author": "Yohanes",
+  "license": "ISC",
+  "dependencies": {
+    "eslint": "^4.16.0",
+    "jest": "^22.1.4",
+    "superagent": "^3.8.2",
+    "uuid": "^3.2.1"
+  }
+}
