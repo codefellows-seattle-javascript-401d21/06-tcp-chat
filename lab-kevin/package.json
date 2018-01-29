@@ -7,8 +7,8 @@
     "lib": "lib"
   },
   "scripts": {
-    "start": "node server.js",
-    "test": "jest"
+    "lint"  : "eslint .",
+    "start": "node index.js"
   },
   "keywords": [
     "TCP",
@@ -21,8 +21,7 @@
   "author": "Kevin Miller",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^4.16.0",
-    "jest": "^22.1.4"
+    "eslint": "^4.16.0"
   },
   "dependencies": {
     "net": "^1.0.2",
