@@ -14,14 +14,20 @@ server.on('connection', function(socket){
   let client = new Client(socket);
   clientMap.set(client.user, client);
 
-  for (let usr of clientMap.values()){ usr.socket.write(`\n${pre}host: Bonjour, ${client.clientName}. Comment allez-vous?\n${pre}@${usr.clientName} says: `); }
+  for (let usr of clientMap.values()){ 
+    let greet = '';
+    if (client.clientName === usr.clientName) greet = ' Comment allez-vous?';
+    usr.socket.write(`\n${pre}host: Bonjour, ${client.clientName}!${greet}\n${pre}@${usr.clientName} says: `); 
+  }
 
   socket.on('data', function(data){
     let msg = data.toString().trim();
     let cmdArgs = msg.substr(0,1) === '@' ? msg.substr(1) : null;
     if (! cmdArgs){
       for (let usr of clientMap.values()){
-        usr.socket.write(`\n${pre}@${client.clientName} <all>: ${msg}\n${pre}@${usr.clientName} says: `);
+        let n = '\n';
+        if (client.clientName === usr.clientName) n = '';
+        usr.socket.write(`${n}${pre}@${client.clientName} <all>: ${msg}\n${pre}@${usr.clientName} says: `);
       }
       return;
     }
@@ -31,12 +37,12 @@ server.on('connection', function(socket){
     if (! cmd.hasOwnProperty(cmdArg_lower)){
       for (let usr of clientMap.values()){ 
         if (usr.clientName === cmdArg){
-          mesg = cmdArgs.split(' ').slice(1).join(' ');
+          mesg = cmdArgs.split(' ').slice(1).join(' ') || '';
           uname = cmdArg;
           cmdArg_lower = 'dm';
         }
       }
-      if(cmdArg_lower !== 'dm') return client.socket.write(`${pre}host: I'm sorry, @${cmdArg} is not a valid command. Try @help\n${pre}@${client.clientName} says: `);
+      if(cmdArg_lower !== 'dm') return client.socket.write(`${pre}host: I'm sorry, @${cmdArg} is not a valid command or user. Try @help\n${pre}@${client.clientName} says: `);
     } 
     cmd[cmdArg_lower](client, clientMap, uname, mesg );
   });

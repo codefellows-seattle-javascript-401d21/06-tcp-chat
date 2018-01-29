@@ -2,7 +2,7 @@
 
 This is basic terminal TCP chat server built on the Nodejs net module.  User can connect the server via local host:3000 using the terminal command nc. The app allows connected users to chat as a group or with a direct message command.  Users have access to   Users are assigned a nickname upon connection and then have access to a command to change their nickname as well as access to commands to list all users, list all commands and quit.
 
-## Install
+>## Install
 
 ```BASH
     npm i
@@ -20,7 +20,13 @@ This is basic terminal TCP chat server built on the Nodejs net module.  User can
   }
 ```
 
-## Usage
+>## Usage
+
+### Start Server
+
+```BASH
+    npm start
+```
 
 ### login
 
@@ -34,6 +40,14 @@ This is basic terminal TCP chat server built on the Nodejs net module.  User can
     #  host: Bonjour, Kevin. Comment allez-vous?
     #  @Kevin says:
 ```
+
+```
+    nc localhost 3000
+    #  @Geoff says:
+    #  host: Bonjour, Kevin!
+    #  @Geoff says:
+
+``` 
 
 ### Change nick name
 
@@ -50,6 +64,11 @@ This is basic terminal TCP chat server built on the Nodejs net module.  User can
     #  @Trena says: @nickname Kevin
     #  host: Kevin, ca va?
     #  @Kevin says:
+```
+```
+    #  @Geoff says:
+    #  host: @Lyndsay is now known as Kevin
+    #  @Geoff says:
 ```
 
 
@@ -77,10 +96,17 @@ This is basic terminal TCP chat server built on the Nodejs net module.  User can
 
 ```
     #  @Kevin says: @dm Geoff Do you want to get lunch?
-    #  @Kevin <direct>: @Geoff: Do you want to get lunch?
+    #  @Kevin/@Geoff<direct>: Do you want to get lunch?
     #  @Geoff <direct>: Yeah, that would be far out!
     #  @Kevin says:
-    
+```
+
+```
+    #  @Geoff says:
+    #  @Kevin <direct>:  Do you want to get lunch?
+    #  @Geoff says:  @dm Kevin Yeah, that would be far out!
+    #  @Geoff/@kevin <direct>: Yeah, that would be far out!
+    #  @Geoff says:
 ```
 
 #### @&lt;usernamse&gt; &lt;message&gt;
@@ -91,6 +117,14 @@ This is basic terminal TCP chat server built on the Nodejs net module.  User can
     #  @Geoff <direct>: Yeah, that would be far out!
     #  @Kevin says:
     
+```
+
+```
+    #  @Geoff says:
+    #  @Kevin <direct>:  Do you want to get lunch?
+    #  @Geoff says:  @Kevin Yeah, that would be far out!
+    #  @Geoff/@kevin <direct>:  @Kevin Yeah, that would be far out!
+    #  @Geoff says:
 ```
 
 ### List all users
@@ -115,6 +149,13 @@ This is basic terminal TCP chat server built on the Nodejs net module.  User can
 
 ```
 
+```
+    #  @Geoff says:
+    #  host: Aravoir...Kevin 
+    #  @Geoff says: 
+
+```
+
 ### Help
 
 - Users can type @help to see a list of commands
@@ -133,22 +174,131 @@ This is basic terminal TCP chat server built on the Nodejs net module.  User can
     #  @Kevin says:
 ```
 
+### Command not found
+
+```
+    host: I'm sorry, @w is not a valid command. Try @help 
+```
+
+### User not found
+```
+    #  @Kevin says: @list
+    #  host: @Kevin, @Val
+    #  @Kevin says: @Mie
+    #  host: I'm sorry, @Mie is not a valid command or user. Try @help
+    #  @Kevin says: @dm Mike Hello
+    #  host: Can not find user, Mike.  FYI... user names are case sensitive.
+    #  @Kevin says:
+```
+
+>## Code
+
+### index.js
+
+- Requires server.js
+
+- Invokes server.listen which has an arity of 2, a port number and callback
+
+### server.js
+
+#### server.on('connection', callback(socket))
+
+  - Airty: 2
+
+  - Parameters 'server event name', function(socket)
+
+  - The callback is invoked when a connection is made to the server.  The socket objet for the cponnection event is sent ss the argument of the callback
+
+  
+
+  #### socket.on('data', callback)
+
+  - Airty: 2
+
+  - Parameters  'socket event name', function(socket)
+
+  - The callback is invoked when a socket receives data. The callback is invoked withe the data as an argument
+
+  - The callback parses out the data into script defined commands and messages, passing the messages to the cmd module when necessary.
+
+  #### socket.on('close', callback)
+
+  - Airty: 2
+
+  - Parameters: socket event name', function();
+ 
+  - When socket.end() is invoked it triggers the socket close event.  The callback sends out a message indicating which user has left the chat. 
+
+  #### socket.on('error', callback)
+
+  - Airty: 2
+
+  - Parameters: socket event name', function(error);
+
+  - The callback logs the error.
+
+### model/client.js
+
+#### require('uuid')
+
+ - This module is used to generate a unique identifier to use as an id for a user
+
+ #### require('node-random-name')
+
+ - This module is used to generate a random nickname for a user
+
+ #### module.exports 
+
+  - Airty: 1
+
+  - parameters: socket
+
+  module.expots for client.js is an object constructor used to hold user information with properties of socket, clientName, and user
+
+  ### lib/cmd.js
+
+  - This module contains the app defined user commands. 
+
+  #### quit
+
+  - Airty: array
+
+  - Parameters: expecting the first item to be a client object
+
+  - The quit method uses the socket property to end the session for that user and send a goodbye message. 
 
 
+#### dm
 
+  - Airty: array
 
+  - Parameters: Expecting client object, map of connected users, username to message, and the message to send
 
-Minimum Requirements
-Create a TCP Server using the NodeJS net module
-Create a Client constructor that models an individual connection.
-Each client instance should contain at least an id, nickname, and socket.
-Clients should be able to send messages to all other clients by sending it to the server
-Clients should be able to run special commands by sending messages that start with a command name
-The client should send @quit to disconnect
-The client should send @list to list all connectued users
-The client should send @nickname <new-name> to change their nickname
-The client should send @dm <to-username> <message> to send a message directly to another user by nickname
-Connected clients should be maintained in an in memory collection called the clientPool
-When a socket emits the close event, the socket should be removed from the client pool
-When a socket emits the error event, the error should be logged on the server
-When a socket emits the data event, the data should be logged on the server and the commands below should be implemented
+  - The dm method searches the map for a user name and if found, sends a message to just that user, indicating who it was from.  It also sends a duplicate message back to the sender as conformation that the message was sent and to whom.
+
+  
+  #### list
+
+  - Airty: array
+
+  - Parameters: Expecting a client object and user map
+
+  - The list method creates a csv of current users and sends it to the requester
+
+  
+  #### nickname
+
+  - Airty: array
+
+  - Parameters: Expecting a client object, user map, and new name
+
+  - The nickname method allows a user to change their screen name.  It sends a response back to teh user and a message to all users indicating the name change.
+
+   #### help
+
+  - Airty: array
+
+  - Parameters: expecting client object
+
+  - The help method sends a list of commands to the requester.
+  

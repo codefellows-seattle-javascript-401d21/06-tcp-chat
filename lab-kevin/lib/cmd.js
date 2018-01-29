@@ -13,6 +13,7 @@ cmd.dm  = (...args) => {
   let [client, clientMap, uname, msg ] = args;
   for (let usr of clientMap.values()){ 
     if (usr.clientName === uname){
+
       usr.socket.write(`\n${pre}@${client.clientName} <direct>: ${msg}\n${pre}@${uname} says: `);
       client.socket.write(`${pre}@${client.clientName}/@${uname} <direct>: ${msg}\n${pre}@${client.clientName} says: `);
       //client.socket.write(`${pre}@${client.clientName} says: `);
@@ -30,11 +31,19 @@ cmd.list = (...args) => {
 };
 
 cmd.nickname = (...args) => { 
-  let [client, , new_name] = args;
+  let [client, clientMap, new_name] = args;
   if (!new_name) return;
+  let oldName = client.clientName
   client.clientName = new_name;
   client.socket.write(`${pre}host: ${client.clientName}, ca va?\n`);
   client.socket.write(`${pre}@${client.clientName} says: `);
+
+  for (let usr of clientMap.values()){ 
+    if (usr.clientName !== new_name){
+      usr.socket.write(`\n${pre}host: @${oldName} is now known as ${client.clientName}\n${pre}@${usr.clientName} says: `);
+    }
+  }
+
 }; 
 
 cmd.help = (...args) => { 
