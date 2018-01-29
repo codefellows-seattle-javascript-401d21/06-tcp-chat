@@ -7,30 +7,42 @@ const cmd = require(`${__dirname}/lib/cmd`);
 
 //server dependencies
 const server = module.exports = net.createServer();
-const PORT = process.env.PORT || 3000;
-const clientPool = [];
 const clientMap = new Map();
+const pre = '#  ';
 
 server.on('connection', function(socket){
   let client = new Client(socket);
   clientMap.set(client.user, client);
 
-  for (var usr of clientMap.values()){ usr.socket.write(`\tBonjour, ${client.clientName}. Comment allez-vous?\n\t`); }
+  for (let usr of clientMap.values()){ usr.socket.write(`${pre}host: Bonjour, ${client.clientName}. Comment allez-vous?\n${pre}@${usr.clientName} says: `); }
 
   socket.on('data', function(data){
     let msg = data.toString().trim();
-    console.log(data);
     let cmdArgs = msg.substr(0,1) === '@' ? msg.substr(1) : null;
-    if (! cmdArgs) return;
+    if (! cmdArgs){
+      for (let usr of clientMap.values()){
+        usr.socket.write(`${pre}@${client.clientName} <all>: ${msg}\n${pre}@${usr.clientName} says: `);
+      }
+      return;
+    }
     let [cmdArg, uname, mesg] = cmdArgs.split(' ');
-    cmdArg = cmdArg.toLowerCase();
-    if (! cmd.hasOwnProperty(cmdArg)) return;
-    cmd[cmdArg](client, clientMap, uname, msg );
+    let cmdArg_lower = cmdArg.toLowerCase();
+    if (! cmd.hasOwnProperty(cmdArg_lower)){
+      for (let usr of clientMap.values()){ 
+        if (usr.clientName === cmdArg){
+          mesg = cmdArgs.split(' ').slice(1).join(' ');
+          uname = cmdArg;
+          cmdArg_lower = 'dm';
+        }
+      }
+      if(cmdArg_lower !== 'dm') return client.socket.write(`${pre}host: I'm sorry, @${cmdArg} is not a valid command. Try @help\n${pre}@${client.clientName} says: `);
+    } 
+    cmd[cmdArg_lower](client, clientMap, uname, mesg );
   });
 
   socket.on('close', function() {
     clientMap.delete(client.user);
-    for (var usr of clientMap.values()){ usr.socket.write(`\tAravoir, ${client.clientName}, mon ami\n\t`); }
+    for (let usr of clientMap.values()){ usr.socket.write(`${pre}host: Aravoir, ${client.clientName}, mon ami\n${pre}@${usr.clientName} says: `); }
   });
 
   socket.on('error', function(err) {
@@ -39,6 +51,5 @@ server.on('connection', function(socket){
   
 });
 
-
-server.listen(PORT, () => console.log(`Listening on PORT ${PORT}`));
+//
 
