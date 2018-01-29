@@ -5,12 +5,12 @@ const Client = require('./model/client');
 const cmd = require('./lib/cmd');
 
 const server = module.exports = net.createServer();
-const PORT = process.env.PORT || 5000;
-let clientPool = [];
+const PORT = process.env.PORT || 5000; 
+let clientPool = []; //where logged in users are pushed to start chat
 
 server.on('connection', function (socket) {
-  let client = new Client(socket);
-  clientPool.push(client);
+  let client = new Client(socket); //socket being the plug on when 'online'
+  clientPool.push(client); 
   socket.write('Welcome ' + client.nickname + '!\n');
   clientPool.map(c => c.socket.write(`\t${client.nickname} has joined the conversation.\n`));
 
@@ -51,5 +51,4 @@ server.on('connection', function (socket) {
     client.socket.write(`\n${data.err}\n`);
   });
 });
-
 server.listen(PORT, () => console.log(`Listening on ${PORT}`));

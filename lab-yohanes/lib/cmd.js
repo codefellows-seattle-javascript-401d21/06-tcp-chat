@@ -1,6 +1,8 @@
 'use strict';
 
+//exproting 2 paramaters data and clientPool
 module.exports = (data, clientPool) => {
+  //slicing the last two characters by 2 and splktting by spaces
   let message = data.toString().slice(0, -1).split(' ');
   if (message[0][0] === '@') {
     switch (message[0]) {
