@@ -33,7 +33,7 @@ cmd.list = (...args) => {
 cmd.nickname = (...args) => { 
   let [client, clientMap, new_name] = args;
   if (!new_name) return;
-  let oldName = client.clientName
+  let oldName = client.clientName;
   client.clientName = new_name;
   client.socket.write(`${pre}host: ${client.clientName}, ca va?\n`);
   client.socket.write(`${pre}@${client.clientName} says: `);
