@@ -1,0 +1,30 @@
+{
+  "name": "lab-kevin",
+  "version": "0.0.0",
+  "description": "Lab 06: TCP Chat Server: For this assignment you will be building a TCP chatroom",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "lint"  : "eslint .",
+    "start": "node index.js"
+  },
+  "keywords": [
+    "TCP",
+    "Node",
+    "chat",
+    "server",
+    "event",
+    "emitters"
+  ],
+  "author": "Kevin Miller",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^4.16.0"
+  },
+  "dependencies": {
+    "net": "^1.0.2",
+    "node-random-name": "^1.0.1"
+  }
+}
