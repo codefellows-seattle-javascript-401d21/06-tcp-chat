@@ -1,0 +1,29 @@
+{
+  "name": "06-tcp-chat",
+  "version": "1.0.0",
+  "description": "![cf](https://i.imgur.com/7v5ASc8.png) Lab 06: TCP Chat Server ======",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --verbose",
+    "lint": "eslint .",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/montgomeryrd/06-tcp-chat.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/montgomeryrd/06-tcp-chat/issues"
+  },
+  "homepage": "https://github.com/montgomeryrd/06-tcp-chat#readme",
+  "devDependencies": {
+    "eslint": "^4.16.0",
+    "eslint-plugin-react": "^7.5.1"
+  },
+  "dependencies": {
+    "uuid": "^3.2.1",
+    "eslint": "^4.16.0"
+  }
+}
